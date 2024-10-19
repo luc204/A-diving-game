@@ -2,23 +2,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class PlayerInventory : MonoBehaviour
+public class Inventory : MonoBehaviour
 {
     public Text countText; // UI Text to display the count
-    private Dictionary<string, int> inventory = new Dictionary<string, int>();
-
-    public void PickupItem(string itemName)
+    public Dictionary<string, int> inventory = new Dictionary<string, int>();
+    private Inventory PlayerInventory;
+   
+    public void PickupItem(string Shells)
     {
-        if (inventory.ContainsKey(itemName))
+        if (inventory.ContainsKey(Shells))
         {
-            inventory[itemName]++;
+            inventory[Shells]++;
         }
         else
         {
-            inventory[itemName] = 1;
+            inventory[Shells] = 1;
         }
         UpdateCountDisplay();
-        Debug.Log($"Picked up {itemName}. Total: {inventory[itemName]}");
+        Debug.Log($"Picked up {Shells}. Total: {inventory[Shells]}");
     }
 
     private void UpdateCountDisplay()

@@ -7,6 +7,10 @@ public class PauseMenuController : MonoBehaviour
 
     public GameObject pauseMenuPanel;
     public string mainMenuSceneName = "MainMenu";
+    public Inventory PlayerInventory; 
+    public GameObject FinishScreenPanel;
+    public string ShellKey = "Shells";
+    public int TotalShells;
 
     void Update()
     {
@@ -20,6 +24,9 @@ public class PauseMenuController : MonoBehaviour
             {
                 Pause();
             }
+        }
+        {
+            CheckShellCount();
         }
     }
 
@@ -48,4 +55,33 @@ public class PauseMenuController : MonoBehaviour
         Debug.Log("Quitting game...");
         Application.Quit();
     }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    void CheckShellCount()
+    {
+        string ShellKey = "Shells";
+        if (PlayerInventory.inventory.ContainsKey(ShellKey))
+        {
+            if (PlayerInventory.inventory[ShellKey] >= TotalShells)
+            {
+                TriggerFinishScreen();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Shells not found in inventory.");
+        }
+    }
+
+    void TriggerFinishScreen()
+    {
+        FinishScreenPanel.SetActive(true);
+        Time.timeScale = 0f;
+        GameIsPaused = true;
+    }
+
 }
