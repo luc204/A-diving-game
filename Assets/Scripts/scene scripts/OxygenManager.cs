@@ -54,12 +54,8 @@ public class OxygenManager : MonoBehaviour
 
     public void RestartGame()
     {
-        Time.timeScale = 1f; // Resume normal time scale
+        Time.timeScale = 1f; //resume game or like put back to normal time
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void RefillOxygen(float amount)
-    {
-        currentOxygen = Mathf.Min(currentOxygen + amount, maxOxygen);
-    }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -17,12 +15,19 @@ public class PlayerMovement : MonoBehaviour
     public float minRotationAngle = -120f;
     public float maxRotationAngle = 120f;
 
+    private AudioManager audioManager;
+    private float lastSwimmingSoundTime = 0f;
+    public float swimmingSoundInterval = 100f;
+
+
     void Start()
     {
 
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+
     }
 
     void Update()
@@ -30,28 +35,33 @@ public class PlayerMovement : MonoBehaviour
         // player movement
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-        
-        //all my animation code. move.norm for last direction and the others for swimming and idle animations.
+
         if (movement.magnitude > 1)
         {
             movement = movement.normalized;
         }
 
-        
         if (movement.magnitude > 0)
         {
             animator.SetBool("IsSwimming", true);
             lastDirection = movement;
+
+            // Play swimming sound
+            if (Time.time - lastSwimmingSoundTime > swimmingSoundInterval)
+            {
+                if (audioManager != null && audioManager.Swim != null)
+                {
+                    audioManager.PlaySFX(audioManager.Swim);
+                    lastSwimmingSoundTime = Time.time;
+                }
+            }
         }
         else
         {
             animator.SetBool("IsSwimming", false);
         }
 
-
         FlipCharacter();
-
-
         RotatePlayer();
     }
 

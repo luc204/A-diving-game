@@ -8,6 +8,13 @@ public class Object : MonoBehaviour
     private bool playerInRange = false;
     private Inventory playerInventory;
 
+    AudioManager audioManager;
+
+    public void Start()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -26,10 +33,19 @@ public class Object : MonoBehaviour
         }
     }
 
-    private void Update()
+
+
+    public void Update()
     {
         if (playerInRange && Input.GetKeyDown(pickupKey) && playerInventory != null)
         {
+           
+            if (audioManager != null)
+            {
+                audioManager.PlaySFX(audioManager.PickUp);
+            }
+
+
             playerInventory.PickupItem(objectName);
             Destroy(gameObject);
         }
