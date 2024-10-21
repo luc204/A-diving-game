@@ -44,8 +44,6 @@ public class Object : MonoBehaviour
             {
                 audioManager.PlaySFX(audioManager.PickUp);
             }
-
-
             playerInventory.PickupItem(objectName);
             Destroy(gameObject);
         }

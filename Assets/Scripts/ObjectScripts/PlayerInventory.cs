@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
     public Text countText; // UI Text to display the count
     public Dictionary<string, int> inventory = new Dictionary<string, int>();
     private Inventory PlayerInventory;
-   
+
     public void PickupItem(string Shells)
     {
         if (inventory.ContainsKey(Shells))

@@ -16,8 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public float maxRotationAngle = 120f;
 
     private AudioManager audioManager;
-    private float lastSwimmingSoundTime = 0f;
-    public float swimmingSoundInterval = 100f;
+    private float lastSwimmingSoundTime = 1f;
+    public float swimmingSoundInterval = 1f;
 
 
     void Start()
